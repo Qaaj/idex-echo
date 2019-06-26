@@ -20,10 +20,12 @@ const execShellCommand = () => {
 fastify.get('/', async (request, reply) => {
   reply.type('text/html').code(200);
   const text = await execShellCommand();
-  return text;
+  const index = text.indexOf('Staking:');
+  const txt = text.substr(index,16);
+  return txt;
 })
 
-fastify.listen(9000, (err, address) => {
+fastify.listen(80,'0.0.0.0', (err, address) => {
   if (err) throw err
   fastify.log.info(`server listening on ${address}`)
 })
